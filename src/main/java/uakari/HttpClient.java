@@ -9,9 +9,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 
-/**
- * Created by jakob on 31.03.18.
- */
 public class HttpClient {
 
     final private static String MANDRILL_API = "https://mandrillapp.com/api/1.0/";

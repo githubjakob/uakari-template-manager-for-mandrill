@@ -1,5 +1,6 @@
 class Nav extends React.Component {
 
+
     constructor(props) {
         super(props)
 
@@ -27,4 +28,4 @@ class Nav extends React.Component {
     }
 }
 
-module.exports = Nav
+export default Nav

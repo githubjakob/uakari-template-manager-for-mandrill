@@ -1,11 +1,5 @@
 package uakari;
 
-import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.Context;
-import org.thymeleaf.messageresolver.StandardMessageResolver;
-import org.thymeleaf.templatemode.TemplateMode;
-import org.thymeleaf.templateresolver.StringTemplateResolver;
-
 import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Locale;
@@ -17,11 +11,7 @@ import java.util.Properties;
  */
 public class ThymeleafTemplateEngine {
 
-    public static void main(String[] args) {
-        process();
-    }
-
-    public static boolean process() {
+    /*public static boolean process() {
 
         TemplateEngine templateEngine = new TemplateEngine();
 
@@ -66,6 +56,6 @@ public class ThymeleafTemplateEngine {
 
         return true;
 
-    }
+    }*/
 
 }
