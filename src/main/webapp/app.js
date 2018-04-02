@@ -1,43 +1,27 @@
 "use strict";
 import Home from './home'
-
-class Nav extends React.Component {
-
-    constructor(props) {
-        super(props)
-        this.state = {
-            screenIndex: 1
-        }
-    }
-
-    updateNav(newScreenIndex) {
-        console.log(newScreenIndex)
-        this.setState({screenIndex: newScreenIndex})
-    }
-
-    render() {
-        return (
-        <div className="nav-wrapper">
-            <ul>
-                <li
-                    className={this.state.screenIndex === 1 ? "navElementActive" : ""}
-                    onClick={() => this.updateNav(1)}><p>Home</p></li>
-                <li className={this.state.screenIndex === 2 ? "navElementActive" : ""}
-                    onClick={() => this.updateNav(2)}><p>Templates</p></li>
-                <li className={this.state.screenIndex === 3 ? "navElementActive" : ""}
-                    onClick={() => this.updateNav(3)}><p>Translations</p></li>
-            </ul>
-        </div>
-    )
-    }
-}
+import Nav from './nav'
+import { EventEmitter } from 'fbemitter'
 
 class App extends React.Component {
 
+    componentWillMount() {
+        this.state = {
+            screenIndex: 1
+        }
+        this.eventEmitter = new EventEmitter();
+
+        this.eventEmitter.addListener("changeScreen", (newScreenIndex) => {
+            this.setState({"screenIndex": newScreenIndex})
+        })
+    }
+
     render() {
         return (<div>
-            <Nav/>
-            <Home/>
+            <Nav
+                eventEmitter={this.eventEmitter}
+                screenIndex={this.state.screenIndex}/>
+            <Home screenIndex= {this.state.screenIndex}/>
         </div>)
     }
 
