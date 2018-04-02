@@ -1,4 +1,4 @@
-package uakari;
+package uakari.model;
 
 import lombok.Getter;
 import org.springframework.data.annotation.Id;

@@ -1,19 +1,18 @@
 class HttpClient {
 
-    addNewMandrillApiKey() {
+    addNewMandrillApiKey(key) {
 
-        console.log("asdfasfd")
+        console.log("adding key " + key)
 
 
-        fetch('http://localhost:8080/', {
+        fetch('http://localhost:8080/rest/account', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                firstParam: 'yourValue',
-                secondParam: 'yourOtherValue',
+                apiKey: key
             })
         })
 

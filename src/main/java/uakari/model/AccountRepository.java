@@ -1,4 +1,4 @@
-package uakari;
+package uakari.model;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 

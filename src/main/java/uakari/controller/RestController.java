@@ -2,8 +2,9 @@ package uakari.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import uakari.Account;
-import uakari.AccountRepository;
+import uakari.dto.AccountDto;
+import uakari.model.Account;
+import uakari.model.AccountRepository;
 
 import java.util.List;
 
@@ -12,18 +13,20 @@ import java.util.List;
 public class RestController {
 
     @Autowired
-    AccountRepository repository;
+    AccountRepository accountRepository;
 
     @GetMapping("/account")
-    public List<Account> getAccount() {
-        return repository.findAll();
+    public List<Account> getAccounts() {
+        return accountRepository.findAll();
     }
 
     @PostMapping("/account")
-    public String greeting(@RequestBody Account account) {
+    public boolean createAccount(@RequestBody AccountDto accountDto) {
 
+        Account account = new Account(accountDto.getApiKey());
+        accountRepository.save(account);
 
-        return account.getId() + " asdfsa " + account.getApiKey();
+        return true;
     }
 
 }
