@@ -2,9 +2,9 @@ package uakari.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import uakari.dto.AccountDto;
-import uakari.model.Account;
-import uakari.model.AccountRepository;
+import uakari.dto.HtmlTemplateDto;
+import uakari.model.HtmlTemplate;
+import uakari.model.HtmlTemplateRepository;
 
 import java.util.List;
 
@@ -13,18 +13,18 @@ import java.util.List;
 public class RestController {
 
     @Autowired
-    AccountRepository accountRepository;
+    HtmlTemplateRepository htmlTemplateRepository;
 
-    @GetMapping("/account")
-    public List<Account> getAccounts() {
-        return accountRepository.findAll();
+    @GetMapping("/htmlTemplate")
+    public List<HtmlTemplate> getHtmlTemplatesForUser(@RequestParam("userId") String userId) {
+        return htmlTemplateRepository.findByUserId(userId);
     }
 
-    @PostMapping("/account")
-    public boolean createAccount(@RequestBody AccountDto accountDto) {
+    @PostMapping("/htmlTemplate")
+    public boolean createHtmlTemplate(@RequestBody HtmlTemplateDto htmlTemplateDto) {
 
-        Account account = new Account(accountDto.getApiKey());
-        accountRepository.save(account);
+        HtmlTemplate htmlTemplate = new HtmlTemplate(htmlTemplateDto.getUserId(), htmlTemplateDto.getHtml());
+        htmlTemplateRepository.save(htmlTemplate);
 
         return true;
     }

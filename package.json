@@ -10,6 +10,7 @@
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
     "fbemitter": "^2.1.1",
+    "md5": "^2.2.1",
     "webpack": "^4.4.1"
   },
   "devDependencies": {

@@ -4,8 +4,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
-import uakari.model.Account;
-import uakari.model.AccountRepository;
+import uakari.model.HtmlTemplate;
+import uakari.model.HtmlTemplateRepository;
 
 /**
  *
@@ -18,15 +18,15 @@ import uakari.model.AccountRepository;
  */
 
 @Configuration
-@EnableMongoRepositories(basePackageClasses = AccountRepository.class)
+@EnableMongoRepositories(basePackageClasses = HtmlTemplateRepository.class)
 public class MongoDBConfig {
 
     @Bean
-    CommandLineRunner commandLineRunner(final AccountRepository accountRepository) {
+    CommandLineRunner commandLineRunner(final HtmlTemplateRepository accountRepository) {
         return new CommandLineRunner() {
             @Override
             public void run(String... strings) throws Exception {
-                accountRepository.save(new Account("asdflaösdf"));
+                accountRepository.save(new HtmlTemplate("userid", "hmlt"));
             }
         };
     }
