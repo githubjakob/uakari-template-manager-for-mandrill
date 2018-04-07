@@ -19,6 +19,8 @@ class HttpClient {
 
     static createNewHtmlTemplate(mandrillApiKey, formData) {
         var userId = md5(mandrillApiKey)
+        console.log("name " + formData.name)
+        console.log("html " + formData.html)
         return (
             fetch('http://localhost:8080/rest/htmlTemplate', {
                 method: 'POST',

@@ -16,16 +16,20 @@ class Templates extends React.Component  {
         this.getTemplates();
     }
 
-    handleSubmit(formData) {
+    submitNewHtmlTemplateForm(formData) {
         HttpClient.createNewHtmlTemplate(this.props.mandrillApiKey, formData)
-        this.setState(prevState => {htmlTemplates: [prevState, {name: formData.name, html: formData.html}]})
+        this.setState({htmlTemplates: this.state.htmlTemplates.concat([{name: formData.name, html: formData.html}])})
     }
 
     getTemplates() {
         var self = this;
         HttpClient.getHtmlTemplates(this.props.mandrillApiKey)
             .then(data => {
-                self.setState({htmlTemplates: data})
+                console.log("getting templates")
+                console.log(data)
+                self.setState({htmlTemplates: this.state.htmlTemplates.concat(data)})
+                console.log("state")
+                console.log(self.state.htmlTemplates)
             })
     }
 
@@ -52,7 +56,7 @@ class Templates extends React.Component  {
             <h1>templates</h1>
 
 
-            <Form onSubmit={submittedValues => this.handleSubmit(submittedValues)}>
+            <Form onSubmit={submittedValues => this.submitNewHtmlTemplateForm(submittedValues)}>
                 {formApi => (
                     <form onSubmit={formApi.submitForm} id="form2">
                         <label htmlFor="name">name</label>
