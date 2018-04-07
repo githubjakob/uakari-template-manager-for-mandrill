@@ -1,3 +1,5 @@
+import md5 from 'md5'
+
 class HttpClient {
 
     static pingMandrill(apiKey) {
@@ -15,7 +17,8 @@ class HttpClient {
         )
     }
 
-    static createNewHtmlTemplate(userId, html) {
+    static createNewHtmlTemplate(mandrillApiKey, formData) {
+        var userId = md5(mandrillApiKey)
         return (
             fetch('http://localhost:8080/rest/htmlTemplate', {
                 method: 'POST',
@@ -25,12 +28,25 @@ class HttpClient {
                 },
                 body: JSON.stringify({
                     userId: userId,
-                    html: html
+                    name: formData.name,
+                    html: formData.html
                 })
             })
         )
     }
 
+    static getHtmlTemplates(mandrillApiKey) {
+        var userId = md5(mandrillApiKey);
+        return (
+            fetch('http://localhost:8080/rest/htmlTemplate?userId=' + userId, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                }
+            }).then((response) => response.json())
+        )
+    }
 }
 
 export default HttpClient

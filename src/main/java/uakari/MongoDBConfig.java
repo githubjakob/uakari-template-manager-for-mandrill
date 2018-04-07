@@ -26,7 +26,7 @@ public class MongoDBConfig {
         return new CommandLineRunner() {
             @Override
             public void run(String... strings) throws Exception {
-                accountRepository.save(new HtmlTemplate("userid", "hmlt"));
+                accountRepository.save(new HtmlTemplate("userid", "hmlt", "name"));
             }
         };
     }

@@ -10,6 +10,8 @@ public class HtmlTemplateDto {
 
     String userId;
 
+    String name;
+
     String html;
 
 }

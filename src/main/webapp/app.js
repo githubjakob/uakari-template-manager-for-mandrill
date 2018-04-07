@@ -6,12 +6,17 @@ import { EventEmitter } from 'fbemitter'
 
 class App extends React.Component {
 
-    componentWillMount() {
+    constructor(props) {
+        super(props)
         this.state = {
             screenIndex: 1,
             mandrillApiKey: 0}
 
         this.eventEmitter = new EventEmitter();
+    }
+
+    componentDidMount() {
+
 
         this.eventEmitter.addListener("changeScreen", (newScreenIndex) => {
             this.setState({"screenIndex": newScreenIndex})

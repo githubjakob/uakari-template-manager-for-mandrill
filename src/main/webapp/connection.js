@@ -1,6 +1,6 @@
 import React from 'react'
 import HttpClient from './httpClient'
-import Form from './components/form'
+import { Form, Text, TextArea, Radio, RadioGroup, Select, Checkbox } from 'react-form'
 
 class Connection extends React.Component {
 
@@ -12,10 +12,10 @@ class Connection extends React.Component {
         }
     }
 
-    handleSubmit(value) {
-        this.props.eventEmitter.emit("apiKeyEntered", value)
+    handleSubmit(apiKey) {
+        this.props.eventEmitter.emit("apiKeyEntered", apiKey)
 
-        HttpClient.pingMandrill(value)
+        HttpClient.pingMandrill(apiKey)
             .then((data) => {
                 if (data.ok) {
                     this.setState({pingOk: "ping to mandrill api is ok"})
@@ -30,8 +30,18 @@ class Connection extends React.Component {
         var enterKey = <div>
             <h1>Setup Mandrill Api Key</h1>
 
-            <Form
-                submitFunction={this.handleSubmit.bind(this)}/>
+            <Form onSubmit={submittedValues => this.handleSubmit(submittedValues.mandrillApiKey)}>
+                {formApi => (
+                    <form onSubmit={formApi.submitForm} id="form2">
+                        <label htmlFor="mandrillApiKey">mandrillApiKey</label>
+                        <Text field="mandrillApiKey" id="mandrillApiKey" />
+                        <button type="submit" className="mb-4 btn btn-primary">
+                            Submit
+                        </button>
+                    </form>
+                )}
+            </Form>
+
 
         </div>
 

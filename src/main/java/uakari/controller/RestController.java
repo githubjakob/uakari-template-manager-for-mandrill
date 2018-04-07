@@ -1,6 +1,7 @@
 package uakari.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
 import uakari.dto.HtmlTemplateDto;
 import uakari.model.HtmlTemplate;
@@ -21,9 +22,13 @@ public class RestController {
     }
 
     @PostMapping("/htmlTemplate")
-    public boolean createHtmlTemplate(@RequestBody HtmlTemplateDto htmlTemplateDto) {
+    public boolean createHtmlTemplate(@RequestBody HtmlTemplateDto htmlTemplateDto) throws MissingServletRequestParameterException {
 
-        HtmlTemplate htmlTemplate = new HtmlTemplate(htmlTemplateDto.getUserId(), htmlTemplateDto.getHtml());
+        if (htmlTemplateDto.getUserId().isEmpty()) {
+            throw new MissingServletRequestParameterException("userId", "String");
+        }
+
+        HtmlTemplate htmlTemplate = new HtmlTemplate(htmlTemplateDto.getUserId(), htmlTemplateDto.getHtml(), htmlTemplateDto.getName());
         htmlTemplateRepository.save(htmlTemplate);
 
         return true;
