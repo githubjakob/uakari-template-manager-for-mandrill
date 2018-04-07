@@ -1,3 +1,4 @@
+import React from 'react'
 import Form from './components/form'
 import HttpClient from './httpClient'
 import md5 from 'md5'

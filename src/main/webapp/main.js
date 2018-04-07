@@ -1,3 +1,4 @@
+import React from 'react'
 import Connection from './connection'
 import Templates from './templates'
 

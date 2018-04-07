@@ -1,4 +1,5 @@
-"use strict";
+import React from 'react'
+import ReactDOM from 'react-dom'
 import Nav from './nav'
 import Main from './main'
 import { EventEmitter } from 'fbemitter'
