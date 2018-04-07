@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Nav from './nav'
 import Main from './main'
+import md5 from 'md5'
 import { EventEmitter } from 'fbemitter'
 
 class App extends React.Component {
@@ -10,7 +11,8 @@ class App extends React.Component {
         super(props)
         this.state = {
             screenIndex: 1,
-            mandrillApiKey: 0}
+            mandrillApiKey: 0,
+            userId: ""}
 
         this.eventEmitter = new EventEmitter();
     }
@@ -24,6 +26,7 @@ class App extends React.Component {
 
         this.eventEmitter.addListener("apiKeyEntered", (apiKey) => {
             this.setState({"mandrillApiKey": apiKey})
+            this.setState({userId: md5(apiKey)})
         })
     }
 
@@ -36,7 +39,8 @@ class App extends React.Component {
             <Main
                 eventEmitter={this.eventEmitter}
                 screenIndex={this.state.screenIndex}
-                mandrillApiKey={this.state.mandrillApiKey}/>
+                mandrillApiKey={this.state.mandrillApiKey}
+                userId={this.state.userId}/>
         </div>)
     }
 

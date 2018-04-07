@@ -15,7 +15,7 @@ class Main extends React.Component  {
 
         if (this.props.screenIndex === 2) {
             return(<Templates
-                mandrillApiKey={this.props.mandrillApiKey}/>)
+                userId={this.props.userId}/>)
         }
 
         if (this.props.screenIndex === 3) {

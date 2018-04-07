@@ -21,6 +21,11 @@ public class RestController {
         return htmlTemplateRepository.findByUserId(userId);
     }
 
+    @GetMapping("/htmlTemplate/{templateName}")
+    public String getHtmlTemplateForUserByName(@RequestParam("userId") String userId, @PathVariable String templateName) {
+        return htmlTemplateRepository.findByUserIdAndName(userId, templateName).getHtml();
+    }
+
     @PostMapping("/htmlTemplate")
     public boolean createHtmlTemplate(@RequestBody HtmlTemplateDto htmlTemplateDto) throws MissingServletRequestParameterException {
 

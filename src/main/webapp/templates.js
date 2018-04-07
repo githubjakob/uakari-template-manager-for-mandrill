@@ -17,35 +17,35 @@ class Templates extends React.Component  {
     }
 
     submitNewHtmlTemplateForm(formData) {
-        HttpClient.createNewHtmlTemplate(this.props.mandrillApiKey, formData)
+        HttpClient.createNewHtmlTemplate(this.props.userId, formData)
         this.setState({htmlTemplates: this.state.htmlTemplates.concat([{name: formData.name, html: formData.html}])})
     }
 
     getTemplates() {
         var self = this;
-        HttpClient.getHtmlTemplates(this.props.mandrillApiKey)
+        HttpClient.getHtmlTemplates(this.props.userId)
             .then(data => {
-                console.log("getting templates")
-                console.log(data)
                 self.setState({htmlTemplates: this.state.htmlTemplates.concat(data)})
-                console.log("state")
-                console.log(self.state.htmlTemplates)
             })
     }
-
 
     render() {
 
         var Templates = [];
         this.state.htmlTemplates.forEach(entry => {
+            var href = "http://localhost:8080/rest/htmlTemplate/" + entry.name + "?userId=" + this.props.userId
             Templates.push(
                 <tr>
-                    <td>{entry.html} </td>
+                    <td><a href={href} target="_blank">{entry.name}</a></td>
                 </tr>
             )
         })
 
         return(<div>
+            <h1>templates</h1>
+
+            <h2>your templates</h2>
+            
             <table>
                 <tbody>
                     {Templates}
@@ -53,7 +53,7 @@ class Templates extends React.Component  {
             </table>
 
 
-            <h1>templates</h1>
+            <h2>add new template</h2>
 
 
             <Form onSubmit={submittedValues => this.submitNewHtmlTemplateForm(submittedValues)}>

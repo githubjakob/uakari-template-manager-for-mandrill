@@ -17,8 +17,7 @@ class HttpClient {
         )
     }
 
-    static createNewHtmlTemplate(mandrillApiKey, formData) {
-        var userId = md5(mandrillApiKey)
+    static createNewHtmlTemplate(userId, formData) {
         console.log("name " + formData.name)
         console.log("html " + formData.html)
         return (
@@ -37,8 +36,7 @@ class HttpClient {
         )
     }
 
-    static getHtmlTemplates(mandrillApiKey) {
-        var userId = md5(mandrillApiKey);
+    static getHtmlTemplates(userId) {
         return (
             fetch('http://localhost:8080/rest/htmlTemplate?userId=' + userId, {
                 method: 'GET',

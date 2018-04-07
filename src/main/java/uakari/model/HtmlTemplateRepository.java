@@ -8,4 +8,6 @@ public interface HtmlTemplateRepository extends MongoRepository<HtmlTemplate, St
 
     List<HtmlTemplate> findByUserId(String userId);
 
+    HtmlTemplate findByUserIdAndName(String userId, String name);
+
 }
