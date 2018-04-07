@@ -1,6 +1,7 @@
 import React from 'react'
 import Connection from './connection'
 import Templates from './templates'
+import TextStrings from './textStrings'
 
 class Main extends React.Component  {
 
@@ -19,7 +20,7 @@ class Main extends React.Component  {
         }
 
         if (this.props.screenIndex === 3) {
-            return(<h1>not yet</h1>)
+            return(<TextStrings/>)
         }
 
 

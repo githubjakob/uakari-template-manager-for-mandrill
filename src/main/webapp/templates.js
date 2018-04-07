@@ -45,7 +45,7 @@ class Templates extends React.Component  {
             <h1>templates</h1>
 
             <h2>your templates</h2>
-            
+
             <table>
                 <tbody>
                     {Templates}

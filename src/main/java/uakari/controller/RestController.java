@@ -4,9 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
 import uakari.dto.HtmlTemplateDto;
+import uakari.dto.TextStringsDto;
 import uakari.model.HtmlTemplate;
 import uakari.model.HtmlTemplateRepository;
+import uakari.model.TextString;
 
+import java.util.Arrays;
 import java.util.List;
 
 @org.springframework.web.bind.annotation.RestController
@@ -35,6 +38,17 @@ public class RestController {
 
         HtmlTemplate htmlTemplate = new HtmlTemplate(htmlTemplateDto.getUserId(), htmlTemplateDto.getHtml(), htmlTemplateDto.getName());
         htmlTemplateRepository.save(htmlTemplate);
+
+        return true;
+    }
+
+    @PostMapping("/textStrings")
+    public boolean addTextStrings(@RequestBody TextStringsDto textStrings) {
+
+
+
+        System.out.println(Arrays.toString(textStrings.getNameAndText().entrySet().toArray()));
+
 
         return true;
     }
