@@ -4,7 +4,7 @@
   "scripts": {
     "prebuild": "npm install",
     "webpack-dev": "webpack -d --display-modules",
-    "webpack-watch": "webpack -d --display-modules --watch"
+    "webpack-watch": "webpack -d --display-modules --watch --progress --display-error-details"
   },
   "dependencies": {
     "babel-core": "^6.26.0",

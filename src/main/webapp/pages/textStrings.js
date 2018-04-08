@@ -1,10 +1,7 @@
 import { Grid, Input, Select } from 'react-spreadsheet-grid'
 import React from 'react'
-
-const rows=[
-    { id: '0', name: 'John Doe', positionId: 'position1', managerId: 'manager1' },
-    // and so on...
-];
+import TextStringsStore from '../stores/textStringsStore'
+import dispatcher from '../dispatcher/dispatcher'
 
 class TextStrings extends React.Component {
 
@@ -13,24 +10,37 @@ class TextStrings extends React.Component {
 
         // Rows are stored in the state.
         this.state = {
-            rows,
+            rows: TextStringsStore.getAllTextStrings(),
             columns: this.initColumns()
         };
+    }
+
+    componentDidMount() {
+        TextStringsStore.addListener("change", () => {
+            console.log("change")
+            this.setState({
+                rows: TextStringsStore.getAllTextStrings(),
+                // Blurring focus from the current cell is necessary for a correct behavior of the Grid.
+                blurCurrentFocus: true
+            })
+        })
     }
 
     // A callback called every time a value changed.
     // Every time it save a new value to the state.
     onFieldChange(rowId, field, value) {
-        rows[rowId][field] = value;
-
-        this.setState({
-            rows: [].concat(rows),
-            // Blurring focus from the current cell is necessary for a correct behavior of the Grid.
-            blurCurrentFocus: true
-        });
+        dispatcher.dispatch({
+            type: "FIELD_CHANGE",
+            data: {
+                rowId: rowId,
+                field: field,
+                value: value
+            }
+        })
     }
 
     initColumns() {
+        console.log("init col")
         return [
             {
                 title: () => 'Name',
@@ -46,15 +56,15 @@ class TextStrings extends React.Component {
                     );
                 }
             }, {
-                title: () => 'positionId',
+                title: () => 'String',
                 value: (row, { focus }) => {
 
                     // You can use the built-in Input.
                     return (
                         <Input
-                            value={row.positionId}
+                            value={row.string}
                             focus={focus}
-                            onChange={this.onFieldChange.bind(this, row.id, 'positionId')}
+                            onChange={this.onFieldChange.bind(this, row.id, 'string')}
                         />
                     );
                 }
@@ -63,16 +73,27 @@ class TextStrings extends React.Component {
         ]
     }
 
+    addRow() {
+        dispatcher.dispatch({
+            type: "ADD_ROW"
+        })
+    }
+
     render() {
         return (
-            <Grid
-                columns={this.state.columns}
-                rows={this.state.rows}
-                getRowKey={row => row.id}
+            <div>
+                <Grid
+                    columns={this.state.columns}
+                    rows={this.state.rows}
+                    getRowKey={row => row.id}
+                    
+                    // Don't forget to blur focused cell after a value has been changed.
+                    blurCurrentFocus={this.state.blurCurrentFocus}
+                />
+                <button onClick={this.addRow.bind(this)}>New Row</button>
+            </div>
 
-                // Don't forget to blur focused cell after a value has been changed.
-                blurCurrentFocus={this.state.blurCurrentFocus}
-            />
+
         )
     }
 }
