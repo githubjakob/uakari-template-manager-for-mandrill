@@ -1,32 +1,35 @@
 import React from 'react'
-import HttpClient from './httpClient'
+import HttpClient from '../httpClient'
 import { Form, Text, TextArea, Radio, RadioGroup, Select, Checkbox } from 'react-form';
+import TemplatesStore from '../stores/templatesStore'
+import dispatcher from '../dispatcher/dispatcher'
 
 class Templates extends React.Component  {
 
     constructor(props) {
         super(props)
         this.state = {
-            htmlTemplates: []
+            htmlTemplates: TemplatesStore.getAllTemplates()
         }
 
     }
 
     componentDidMount() {
-        this.getTemplates();
+        // add Listener to Store
+        TemplatesStore.addListener("newTemplate", () => {
+            console.log("new template")
+            this.setState({
+                htmlTemplates: TemplatesStore.getAllTemplates()
+            })
+        })
     }
+
 
     submitNewHtmlTemplateForm(formData) {
-        HttpClient.createNewHtmlTemplate(this.props.userId, formData)
-        this.setState({htmlTemplates: this.state.htmlTemplates.concat([{name: formData.name, html: formData.html}])})
-    }
-
-    getTemplates() {
-        var self = this;
-        HttpClient.getHtmlTemplates(this.props.userId)
-            .then(data => {
-                self.setState({htmlTemplates: this.state.htmlTemplates.concat(data)})
-            })
+        dispatcher.dispatch({
+            type: "CREATE_NEW_TEMPLATE",
+            formData
+        })
     }
 
     render() {
@@ -77,5 +80,7 @@ class Templates extends React.Component  {
 
     }
 }
+
+
 
 export default Templates

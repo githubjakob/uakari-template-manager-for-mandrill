@@ -3,7 +3,7 @@
 Mandrill is a very popular Email Service Provider. Unfortunately it doesn't provide much comfort 
 when it comes to managing the email templates.
 
-The goal of this project is to eventually provide features like:
+The goal of this project is to act as a service between the user and Mandrill, to upload eventually provide features like:
 - Localisation (connect to Transifex)
 - Template engine (Thymeleaf)
 - Version control

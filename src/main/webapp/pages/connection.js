@@ -1,6 +1,7 @@
 import React from 'react'
-import HttpClient from './httpClient'
+import HttpClient from '../httpClient'
 import { Form, Text, TextArea, Radio, RadioGroup, Select, Checkbox } from 'react-form'
+import dispatcher from '../dispatcher/dispatcher'
 
 class Connection extends React.Component {
 
@@ -13,7 +14,12 @@ class Connection extends React.Component {
     }
 
     handleSubmit(apiKey) {
+        console.log("key entered")
         this.props.eventEmitter.emit("apiKeyEntered", apiKey)
+        dispatcher.dispatch({
+            type: "API_KEY_ADDED",
+            apiKey
+        })
 
         HttpClient.pingMandrill(apiKey)
             .then((data) => {

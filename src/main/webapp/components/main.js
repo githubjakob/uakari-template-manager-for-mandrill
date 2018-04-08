@@ -1,7 +1,7 @@
 import React from 'react'
-import Connection from './connection'
-import Templates from './templates'
-import TextStrings from './textStrings'
+import Connection from '../pages/connection'
+import Templates from '../pages/templates'
+import TextStrings from '../pages/textStrings'
 
 class Main extends React.Component  {
 
