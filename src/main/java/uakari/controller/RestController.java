@@ -8,6 +8,7 @@ import uakari.dto.TextStringsDto;
 import uakari.model.HtmlTemplate;
 import uakari.model.HtmlTemplateRepository;
 import uakari.model.TextString;
+import uakari.model.TextStringRepository;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,6 +19,9 @@ public class RestController {
 
     @Autowired
     HtmlTemplateRepository htmlTemplateRepository;
+
+    @Autowired
+    TextStringRepository textStringRepository;
 
     @GetMapping("/htmlTemplate")
     public List<HtmlTemplate> getHtmlTemplatesForUser(@RequestParam("userId") String userId) {
@@ -32,7 +36,7 @@ public class RestController {
     @PostMapping("/htmlTemplate")
     public boolean createHtmlTemplate(@RequestBody HtmlTemplateDto htmlTemplateDto) throws MissingServletRequestParameterException {
 
-        if (htmlTemplateDto.getUserId().isEmpty()) {
+        if (htmlTemplateDto.getUserId() == null) {
             throw new MissingServletRequestParameterException("userId", "String");
         }
 
@@ -47,10 +51,16 @@ public class RestController {
 
 
 
-        System.out.println(Arrays.toString(textStrings.getNameAndText().entrySet().toArray()));
+        //System.out.println(Arrays.toString(textStrings.getNameAndText().entrySet().toArray()));
 
 
         return true;
+    }
+
+    @GetMapping("/textStrings")
+    public List<TextString> getTextStrings(@RequestParam("userId") String userId) {
+
+        return textStringRepository.findByUserId(userId);
     }
 
 }

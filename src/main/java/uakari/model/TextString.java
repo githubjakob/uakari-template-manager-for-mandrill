@@ -8,15 +8,14 @@ import java.util.Locale;
 @Document(collection = "TextStrings")
 public class TextString {
 
-    public TextString(String templateName, String name, String text, Locale locale) {
-        this.templateName = templateName;
+    public TextString(String name, String string, String userId) {
         this.name = name;
-        this.text = text;
-        this.locale = locale;
+        this.string = string;
+        this.userId = userId;
     }
 
     @Getter
-    String templateName;
+    String userId;
 
     /** the key */
     @Getter
@@ -24,9 +23,5 @@ public class TextString {
 
     /** the value */
     @Getter
-    String text;
-
-    @Getter
-    Locale locale;
-
+    String string;
 }

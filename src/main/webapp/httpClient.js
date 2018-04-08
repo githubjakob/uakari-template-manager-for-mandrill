@@ -17,6 +17,18 @@ class HttpClient {
         )
     }
 
+    static getTextStrings(userId) {
+        return(
+            fetch('http://localhost:8080/rest/textStrings?userId=' + userId, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                }
+            }).then((response) => response.json())
+        )
+    }
+
     static createNewHtmlTemplate(userId, formData) {
         console.log("name " + formData.name)
         console.log("html " + formData.html)

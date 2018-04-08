@@ -86,7 +86,7 @@ class TextStrings extends React.Component {
                     columns={this.state.columns}
                     rows={this.state.rows}
                     getRowKey={row => row.id}
-                    
+
                     // Don't forget to blur focused cell after a value has been changed.
                     blurCurrentFocus={this.state.blurCurrentFocus}
                 />

@@ -18,6 +18,7 @@ class TemplatesStore extends EventEmitter {
                 console.log("API_KEY_ADDED")
                 self._getTemplatesFromBackend();
             }
+            break
             case "CREATE_NEW_TEMPLATE": {
                 console.log("CREATE_NEW_TEMPLATE")
                 self._createNewTemplate(action.formData);
@@ -39,9 +40,7 @@ class TemplatesStore extends EventEmitter {
             .then(data => {
                 console.log("received templates from backend", data)
                 self.templates = self.templates.concat(data)
-                window.templates = self.templates
                 self.emit("newTemplate")
-                console.log("event should be emitted")
             })
     }
 

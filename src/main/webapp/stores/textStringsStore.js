@@ -6,11 +6,12 @@ class TextStringsStore extends EventEmitter {
 
     constructor() {
         super()
-        this.textStrings = [
+        /*this.textStrings = [
             {id: 0, name: "name0", string: "string0"},
             {id: 1, name: "name1", string: "string1"},
             {id: 2, name: "name2", string: "string2"}
-        ]
+        ]*/
+        this.textStrings = [];
     }
 
     getAllTextStrings() {
@@ -26,12 +27,18 @@ class TextStringsStore extends EventEmitter {
                 console.log("FIELD_CHANGE")
                 self._updateTextString(action.data);
             }
-            break;
+            break
             case "ADD_ROW": {
                 console.log("ADD_ROW")
                 self.textStrings.push({id: self.textStrings.length, name: "", string: ""})
                 window.textStrings = self.textStrings
                 self.emit("change")
+            }
+            break
+            case "API_KEY_ADDED": {
+                self._getTextStringsFromBackend()
+                self.emit("change")
+
             }
         }
     }
@@ -41,7 +48,20 @@ class TextStringsStore extends EventEmitter {
         this.textStrings[data.rowId][data.field] = data.value;
         window.textStrings = this.textStrings
 
-        this.emit("asfd")
+        this.emit("asfd") // TODO why is this working?
+    }
+
+    _getTextStringsFromBackend() {
+        var self = this;
+        HttpClient.getTextStrings(window.userId).then(data => {
+            console.log("received text strings", data)
+            var result = data.map((entry, index) => {
+                return {id: index, name: entry.name, string: entry.string}
+            });
+            console.log(result)
+            self.textStrings = result;
+            self.emit("change")
+        })
     }
 }
 
